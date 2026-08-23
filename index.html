@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payvibes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #f97316;
+      --primary-dark: #ea6c0a;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      color: #f97316;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; }
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.97);
+      border-bottom: 1px solid #ffedd5;
+      box-shadow: 0 1px 8px rgba(249,115,22,0.06);
+    }
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 24px;
+      height: 80px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 10px; }
+    .nav-brand img { width: 54px; height: 54px; object-fit: contain; }
+    .nav-brand span { font-size: 22px; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
+    .nav-links { display: flex; align-items: center; gap: 24px; }
+    .nav-links a { font-size: 14px; font-weight: 600; color: var(--primary); transition: color .2s; }
+    .nav-links a:hover { color: var(--primary-dark); }
+    .btn-outline {
+      padding: 10px 22px; border-radius: 999px; font-size: 14px;
+      font-weight: 600; color: var(--primary); transition: background .2s;
+    }
+    .btn-outline:hover { background: #fff7ed; }
+    .btn-solid {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 24px; border-radius: 999px; font-size: 14px;
+      font-weight: 700; color: #fff; background: var(--primary);
+      box-shadow: 0 4px 14px rgba(249,115,22,0.30);
+      transition: background .2s, transform .15s;
+      border: none; cursor: pointer;
+    }
+    .btn-solid:hover { background: var(--primary-dark); transform: translateY(-1px); }
+    /* ── HERO ── */
+    .hero {
+      padding: 140px 24px 80px;
+      background: #fff;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 100%; max-width: 900px; height: 500px;
+      background: radial-gradient(ellipse, rgba(249,115,22,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 680px; position: relative; z-index: 1; margin: 0 auto 0 0; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 14px; border-radius: 999px;
+      background: #fff7ed; border: 1px solid #fed7aa;
+      font-size: 13px; font-weight: 600; color: var(--primary); margin-bottom: 24px;
+    }
+    .badge-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--primary);
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .5; transform: scale(1.4); }
+    }
+    .hero h1 {
+      font-size: clamp(42px, 6vw, 72px);
+      font-weight: 900; line-height: 1.08;
+      letter-spacing: -2px; color: var(--primary); margin-bottom: 24px;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 18px; line-height: 1.7; color: #fb923c;
+      font-weight: 500; margin-bottom: 36px; max-width: 520px;
+    }
+    .hero-btns { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 32px; }
+    .btn-hero {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 16px 32px; border-radius: 14px; font-size: 16px;
+      font-weight: 700; cursor: pointer; transition: all .2s; border: none;
+    }
+    .btn-hero-primary { background: var(--primary); color: #fff; box-shadow: 0 8px 24px rgba(249,115,22,0.25); }
+    .btn-hero-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+    .btn-hero-secondary { background: var(--primary); color: #fff; box-shadow: 0 6px 20px rgba(249,115,22,0.2); }
+    .btn-hero-secondary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+    .hero-checks { display: flex; flex-wrap: wrap; gap: 20px; }
+    .hero-check { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #fb923c; }
+    .check-icon { color: var(--primary); font-size: 16px; }
+    /* ── BENEFITS STRIP ── */
+    .benefits {
+      padding: 60px 24px; background: #fff;
+      border-top: 1px solid #f1f5f9; border-bottom: 1px solid #f1f5f9;
+    }
+    .benefits-grid { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+    .benefit-card {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 28px; border-radius: 20px;
+      background: #f8fafc; border: 1px solid #e2e8f0;
+      transition: box-shadow .2s;
+    }
+    .benefit-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+    .benefit-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: #fff7ed; display: flex; align-items: center;
+      justify-content: center; font-size: 22px; flex-shrink: 0;
+    }
+    .benefit-card h3 { font-size: 17px; font-weight: 700; color: #0f172a; margin-bottom: 8px; }
+    .benefit-card p { font-size: 13px; color: #64748b; line-height: 1.6; }
+    /* ── FEATURES ── */
+    .features { padding: 96px 24px; background: #f8fafc; }
+    .section-label { font-size: 12px; font-weight: 700; letter-spacing: 3px; color: var(--primary); text-transform: uppercase; margin-bottom: 12px; }
+    .section-title { font-size: clamp(28px, 4vw, 40px); font-weight: 800; color: #0f172a; margin-bottom: 16px; letter-spacing: -1px; }
+    .section-sub { font-size: 17px; color: #64748b; font-weight: 500; }
+    .text-center { text-align: center; }
+    .features-header { max-width: 680px; margin: 0 auto 64px; }
+    .features-grid { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+    .feature-card {
+      background: #fff; padding: 32px; border-radius: 20px;
+      border: 1px solid #e2e8f0; box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      transition: all .25s;
+    }
+    .feature-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.09); border-color: rgba(249,115,22,0.25); transform: translateY(-2px); }
+    .feature-icon-box {
+      width: 56px; height: 56px; border-radius: 14px;
+      background: #f8fafc; border: 1px solid #e2e8f0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; margin-bottom: 20px; transition: all .25s;
+    }
+    .feature-card:hover .feature-icon-box { background: #fff7ed; border-color: rgba(249,115,22,0.2); transform: scale(1.1); }
+    .feature-card h4 { font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 10px; }
+    .feature-card p { font-size: 14px; color: #64748b; line-height: 1.65; }
+    .feature-cta {
+      background: var(--primary); color: #fff;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; text-align: center; position: relative; overflow: hidden;
+    }
+    .feature-cta::before {
+      content: ''; position: absolute; top: -40px; right: -40px;
+      width: 120px; height: 120px; background: rgba(255,255,255,0.12);
+      border-radius: 50%;
+    }
+    .feature-cta h4 { font-size: 22px; font-weight: 800; margin-bottom: 16px; position: relative; z-index: 1; }
+    .btn-cta-white {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #fff; color: var(--primary);
+      padding: 12px 24px; border-radius: 12px;
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      border: none; transition: background .2s; position: relative; z-index: 1;
+    }
+    .btn-cta-white:hover { background: #fff7ed; }
+    /* ── CTA SECTION ── */
+    .cta-section {
+      padding: 96px 24px; background: #fff7ed;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(251,146,60,0.08);
+    }
+    .cta-inner { max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
+    .cta-section h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 800; color: var(--primary); margin-bottom: 20px; letter-spacing: -1px; }
+    .cta-section p { font-size: 18px; color: #fb923c; font-weight: 500; margin-bottom: 40px; }
+    .cta-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+    /* ── FOOTER ── */
+    footer {
+      background: #fff; padding: 48px 24px;
+      border-top: 1px solid #ffedd5;
+    }
+    .footer-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; flex-wrap: wrap;
+      align-items: center; justify-content: space-between; gap: 24px;
+    }
+    .footer-brand { display: flex; align-items: center; gap: 12px; }
+    .footer-brand img { width: 52px; height: 52px; object-fit: contain; }
+    .footer-brand-name { font-size: 20px; font-weight: 800; color: var(--primary); }
+    .footer-brand-sub { font-size: 12px; color: #fb923c; }
+    .footer-right { text-align: right; }
+    .footer-copy { font-size: 13px; color: #fb923c; margin-bottom: 6px; }
+    .footer-phone a { font-size: 14px; font-weight: 700; color: var(--primary); }
+    .footer-phone a:hover { text-decoration: underline; }
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero { padding: 120px 20px 60px; }
+      .footer-right { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <span>Payvibes</span>
+    </div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#benefits">Benefits</a>
+      <a href="https://payvibes.online" target="_blank" class="btn-outline">Continue to Web</a>
+      <button class="btn-solid" onclick="handleDownload()">
+        ⬇ Download App
+      </button>
+    </div>
+  </div>
+</nav>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Secure Invoicematic &amp; Inventory Management Solution
+    </div>
+    <h1>Payvibes<br/><span>Perfectly Managed.</span></h1>
+    <p>The all-in-one business management tool built specifically for medical stores in Pakistan. Handle sales, inventory, patients, and finances in one secure, lightning-fast application.</p>
+    <div class="hero-btns">
+      <button class="btn-hero btn-hero-primary" onclick="handleDownload()">Download for Offline Use</button>
+      <a href="https://payvibes.online" target="_blank" class="btn-hero btn-hero-secondary">Continue to Web App →</a>
+    </div>
+    <div class="hero-checks">
+      <div class="hero-check"><span class="check-icon">✓</span> No installation required</div>
+      <div class="hero-check"><span class="check-icon">✓</span> 100% Data Privacy</div>
+    </div>
+  </div>
+</section>
+<!-- BENEFITS -->
+<section class="benefits" id="benefits">
+  <div class="benefits-grid">
+    <div class="benefit-card">
+      <div class="benefit-icon">📴</div>
+      <div>
+        <h3>Complete Offline Solution</h3>
+        <p>Runs entirely in your browser without needing an internet connection. Your data never leaves your device.</p>
+      </div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">🔒</div>
+      <div>
+        <h3>100% Data Privacy</h3>
+        <p>No cloud sync, no tracking, no external servers. You maintain total ownership of your pharmacy's financial data.</p>
+      </div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">🛡️</div>
+      <div>
+        <h3>Enterprise Reliability</h3>
+        <p>Built with the robustness of enterprise software, tailored for the fast-paced environment of medical stores.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="features-header text-center">
+    <div class="section-label">Comprehensive Toolset</div>
+    <h2 class="section-title">Everything you need to run your pharmacy</h2>
+      <p class="section-sub">From managing complex inventory batches to printing professional invoices, Invoicevibes handles the heavy lifting so you can focus on your patients.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon-box">🧾</div>
+      <h4>Sales Invoices</h4>
+      <p>Create, manage, and print tax invoices for customers quickly and accurately.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-box">🧮</div>
+      <h4>Purchase Invoices</h4>
+      <p>Track all supplier purchase invoices with complete transparency.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-box">📊</div>
+      <h4>Daily Reports</h4>
+      <p>Real-time financial analytics: sales vs purchases and daily turnover.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-box">📝</div>
+      <h4>Quotations</h4>
+      <p>Generate and send product quotations to shops and customers easily.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-box">👥</div>
+      <h4>Patient Records</h4>
+      <p>Clinical patient info, doctor, service, fees, and status tracking.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-box">↩️</div>
+      <h4>Debit Notes &amp; Returns</h4>
+      <p>Manage returns and debit notes with a full, secure audit trail.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-box">📦</div>
+      <h4>Inventory &amp; Stock</h4>
+      <p>Batch tracking, expiry dates, purchase price, and sale price in one place.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-box">🏪</div>
+      <h4>Customer / Shops Directory</h4>
+      <p>Full shop directory with credit balances and designated routes.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-box">🏢</div>
+      <h4>Suppliers Directory</h4>
+      <p>Pharma companies with contact, NTN, and complete credit info.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-box">🛒</div>
+      <h4>Purchase Orders</h4>
+      <p>Create and manage purchase orders with reliable reference numbers.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-box">💵</div>
+      <h4>Payment Out Vouchers</h4>
+      <p>Track all outgoing payments accurately by mode and recipient.</p>
+    </div>
+    <div class="feature-card feature-cta">
+      <h4>Ready to transform your workflow?</h4>
+      <button class="btn-cta-white" onclick="handleDownload()">⬇ Download Now</button>
+    </div>
+  </div>
+</section>
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2>Take control of your medical store today.</h2>
+    <p>Join the pharmacies relying on Invoicevibes for their daily operations. Fast, secure, and entirely offline.</p>
+    <div class="cta-btns">
+      <button class="btn-hero btn-hero-primary" onclick="handleDownload()">⬇ Download Payvibes</button>
+      <a href="https://payvibes.online" target="_blank" class="btn-hero btn-hero-secondary">Continue in Web</a>
+    </div>
+  </div>
+</section>
+<!-- FOOTER -->
+<footer>
+      <div>
+        <div class="footer-brand-name">Payvibes</div>
+        <div class="footer-brand-sub">Secure Invoicematic &amp; Inventory Management</div>
+      </div>
+    </div>
+    <div class="footer-right">
+      <div class="footer-copy">&copy; 2026 All Rights reserved by Payvibes.</div>
+      <div class="footer-phone">📞 <a href="tel:+923086707676">+92 308 670 7676</a></div>
+    </div>
+  </div>
+</footer>
+<script>
+  function handleDownload() {
+    fetch('payvibe-app.html')
+      .then(r => r.blob())
+      .then(blob => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Invoicevibes.html';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      })
+      .catch(() => alert('App file not found. Please place payvibe-app.html in the same folder.'));
+  }
+</script>
+</body>
+</html>
