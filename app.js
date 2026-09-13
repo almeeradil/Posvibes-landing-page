@@ -4,7 +4,7 @@ function handleDownload() {
  
   const link = document.createElement('a');
   link.href = appUrl;
-  link.download = 'posvibe.exe'; // Jab user download karega toh file ka naam yeh ho jayega
+  link.download = 'Posvibe.exe'; // Jab user download karega toh file ka naam yeh ho jayega
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
